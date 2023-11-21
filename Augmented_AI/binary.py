@@ -1,10 +1,10 @@
-from flask import Flask, render_template
+# create a program for calculating the area of a circle
 
-app = Flask(__name__)
+import math
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+def area_of_circle(radius):
+    return math.pi * radius ** 2
 
-if __name__ == '__main__':
-    app.run(debug=True)
+radius = 4.6
+
+print(area_of_circle(radius))
