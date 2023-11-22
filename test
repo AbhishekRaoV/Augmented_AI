@@ -1,0 +1,7 @@
+stage("Bye") {
+            steps {
+                script {
+			echo "bye"
+                }
+            }
+        }
