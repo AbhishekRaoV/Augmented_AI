@@ -2,21 +2,21 @@ pipeline {
     agent any
     
     stages {
-        stage('Clone repository') {
+        stage('Clone Repository') {
             steps {
                 git 'https://github.com/AbhishekRaoV/Augmented_AI.git'
             }
         }
         
-        stage('Run python script') {
+        stage('Run Python Script') {
             steps {
-                sh 'python script.py'
+                sh 'python binarytree.py'
             }
         }
         
-        stage('Scan python script using mypy') {
+        stage('Scan Python Script') {
             steps {
-                sh 'mypy script.py'
+                sh 'mypy binarytree.py'
             }
         }
     }
