@@ -10,11 +10,11 @@ pipeline {
 
         stage('Run Python Script') {
             steps {
-                sh 'python binarytree.py'
+                sh 'python3 binarytree.py'
             }
         }
 
-        stage('Scan with Mypy') {
+        stage('Scan Python Script') {
             steps {
                 sh 'mypy binarytree.py'
             }
