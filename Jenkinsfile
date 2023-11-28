@@ -1,63 +1,38 @@
-pipeline {
-    agent any
-    
-    stages {
-        stage('Clone Repository') {
-            steps {
-                git branch: 'main', url: 'https://github.com/AbhishekRaoV/Augmented_AI.git'
-            }
+stage("Code Coverage"){
+    steps{
+        script{
+            sh "cat /var/lib/jenkins/workspace/${JOB_NAME}/binarytree.py"
+            sh "cat /var/lib/jenkins/workspace/${JOB_NAME}/binarytree.py | sgpt --code \"generate unit test cases\" --no-cache > CodeCoverage.txt  "
         }
-        
-        stage('Run Python Script') {
-            steps {
-                sh 'python3 binarytree.py'
-            }
+    }
+    post{
+        success {
+            archiveArtifacts artifacts: '**/CodeCoverage.txt'
         }
-        
-        stage('Scan with Bandit') {
-            steps {
-                sh 'bandit -r binarytree.py'
-            }
+    }
+}
+stage("Code/Design Consistency"){
+    steps{
+        script{
+            sh "cat /var/lib/jenkins/workspace/${JOB_NAME}/binarytree.py | sgpt --code \"optimise the code for time complexity\" > CodeDesign_Consistency.txt"
         }
-        
-        stage("Code Coverage"){
-            steps{
-                script{
-                    sh "cat /var/lib/jenkins/workspace/${JOB_NAME}/Augmented_AI/binarytree.py"
-                    sh "cat /var/lib/jenkins/workspace/${JOB_NAME}/Augmented_AI/binarytree.py | sgpt --code \"generate unit test cases\" --no-cache > CodeCoverage.txt  "
-                    }
-                }
-            post{
-                success {
-                    archiveArtifacts artifacts: '**/CodeCoverage.txt'
-                }
-            }
+    }
+    post{
+        success {
+            archiveArtifacts artifacts: '**/CodeDesign_Consistency.txt'
         }
-        
-        stage("Code/Design Consistency"){
-            steps{
-                script{
-                    sh "cat /var/lib/jenkins/workspace/${JOB_NAME}/Augmented_AI/binarytree.py | sgpt --code \"optimise the code for time complexity\" > CodeDesign_Consistency.txt"
-                    }
-                    }
-            post{
-                success {
-                    archiveArtifacts artifacts: '**/CodeDesign_Consistency.txt'
-                }
-            }
-        }
+    }
+}
 
-        stage("Documentation Generation"){
-            steps{
-                script{
-                    sh "cat /var/lib/jenkins/workspace/${JOB_NAME}/Augmented_AI/binarytree.py | sgpt \"generate line by line documentation for this code\" --no-cache > Document.txt"
-                        }
-                    }
-            post{
-                success {
-                    archiveArtifacts artifacts: 'Document.txt'
-                }
-            }
+stage("Documentation Generation"){
+    steps{
+        script{
+            sh "cat /var/lib/jenkins/workspace/${JOB_NAME}/binarytree.py | sgpt \"generate line by line documentation for this code\" --no-cache > Document.txt"
+        }
+    }
+    post{
+        success {
+            archiveArtifacts artifacts: 'Document.txt'
         }
     }
 }
