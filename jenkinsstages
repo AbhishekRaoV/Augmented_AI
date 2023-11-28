@@ -1,8 +1,8 @@
 stage("Code Coverage"){
             steps{
                 script{
-                    sh "cat /var/lib/jenkins/workspace/${JOB_NAME}/Augmented_AI/binarytree.py"
-                    sh "cat /var/lib/jenkins/workspace/${JOB_NAME}/Augmented_AI/binarytree.py | sgpt --code \"generate unit test cases\" --no-cache > CodeCoverage.txt  "
+                    sh "cat /var/lib/jenkins/workspace/${JOB_NAME}/binarytree.py"
+                    sh "cat /var/lib/jenkins/workspace/${JOB_NAME}/binarytree.py | sgpt --code \"generate unit test cases\" --no-cache > CodeCoverage.txt  "
                     }
                 }
             post{
@@ -14,7 +14,7 @@ stage("Code Coverage"){
         stage("Code/Design Consistency"){
             steps{
                 script{
-                    sh "cat /var/lib/jenkins/workspace/${JOB_NAME}/Augmented_AI/binarytree.py | sgpt --code \"optimise the code for time complexity\" > CodeDesign_Consistency.txt"
+                    sh "cat /var/lib/jenkins/workspace/${JOB_NAME}/binarytree.py | sgpt --code \"optimise the code for time complexity\" > CodeDesign_Consistency.txt"
                     }
                     }
             post{
@@ -27,7 +27,7 @@ stage("Code Coverage"){
         stage("Documentation Generation"){
             steps{
                 script{
-                    sh "cat /var/lib/jenkins/workspace/${JOB_NAME}/Augmented_AI/binarytree.py | sgpt \"generate line by line documentation for this code\" --no-cache > Document.txt"
+                    sh "cat /var/lib/jenkins/workspace/${JOB_NAME}/binarytree.py | sgpt \"generate line by line documentation for this code\" --no-cache > Document.txt"
                         }
                     }
             post{
