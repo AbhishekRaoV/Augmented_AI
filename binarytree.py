@@ -1,46 +1,60 @@
-# Binary Tree in Python
-
-class Node:
-    def __init__(self, key):
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
         self.left = None
         self.right = None
-        self.val = key
 
-    # Traverse preorder
-    def traversePreOrder(self):
-        print(self.val, end=' ')
-        if self.left:
-            self.left.traversePreOrder()
-        if self.right:
-            self.right.traversePreOrder()
+class BinaryTree:
+    def __init__(self):
+        self.root = None
 
-    # Traverse inorder
-    def traverseInOrder(self):
-        if self.left:
-            self.left.traverseInOrder()
-        print(self.val, end=' ')
-        if self.right:
-            self.right.traverseInOrder()
+    def insert(self, value):
+        self.root = self._insert(self.root, value)
 
-    # Traverse postorder
-    def traversePostOrder(self):
-        if self.left:
-            self.left.traversePostOrder()
-        if self.right:
-            self.right.traversePostOrder()
-        print(self.val, end=' ')
+    def _insert(self, node, value):
+        if node is None:
+            return TreeNode(value)
+        if value < node.value:
+            node.left = self._insert(node.left, value)
+        elif value > node.value:
+            node.right = self._insert(node.right, value)
+        else:
+            # Value already exists, raise ValueError
+            raise ValueError("Value already exists in the tree")
+        return node
+
+    def search(self, value):
+        return self._search(self.root, value)
+
+    def _search(self, node, value):
+        if node is None or node.value == value:
+            return node
+        if value < node.value:
+            return self._search(node.left, value)
+        return self._search(node.right, value)
 
 
-root = Node(1)
+# Test cases using unittest
+import unittest
 
-root.left = Node(2)
-root.right = Node(3)
+class TestBinaryTree(unittest.TestCase):
+    def setUp(self):
+        self.tree = BinaryTree()
+        self.tree.insert(5)
+        self.tree.insert(3)
+        self.tree.insert(7)
+        self.tree.insert(2)
+        self.tree.insert(4)
 
-root.left.left = Node(4)
+    def test_insert(self):
+        self.tree.insert(6)
+        self.assertIsNotNone(self.tree.search(6))
+        with self.assertRaises(ValueError):
+            self.tree.insert(4)
 
-print("Pre order Traversal: ", end="")
-root.traversePreOrder()
-print("\nIn order Traversal: ", end="")
-root.traverseInOrder()
-print("\nPost order Traversal: ", end="")
-root.traversePostOrder()
+    def test_search(self):
+        self.assertIsNotNone(self.tree.search(3))
+        self.assertIsNone(self.tree.search(8))
+
+if __name__ == '__main__':
+    unittest.main()
