@@ -14,21 +14,22 @@ pipeline {
             }
         }
 
-        stage('Scan Script') {
+        stage('Scan with Bandit') {
             steps {
                 sh 'bandit binarytree.py'
             }
         }
 
-        stage('Test Script') {
+        stage('Test with Coverage') {
             steps {
                 sh 'python3 -m coverage run binarytree.py'
+                sh 'python3 -m coverage report'
             }
         }
 
-        stage('Generate Report') {
+        stage('Scan with Flake8') {
             steps {
-                sh 'python3 -m coverage report'
+                sh 'flake8 binarytree.py'
             }
         }
 
