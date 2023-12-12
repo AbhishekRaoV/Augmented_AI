@@ -9,10 +9,12 @@ def _insert(self, node, value):
     elif value > node.value:
         node.right = self._insert(node.right, value)
     return node
+
 def test_insert(self):
     self.tree.insert(6)
     self.assertIsNotNone(self.tree.search(6))
-    self.assertIsNone(self.tree.insert(4))
+    self.assertIsNone(self.tree.search(4))
+
 def test_search(self):
     self.assertIsNotNone(self.tree.search(3))
     self.assertIsNone(self.tree.search(8))
