@@ -19,7 +19,6 @@ class BinaryTree:
         elif value > node.value:
             node.right = self._insert(node.right, value)
         else:
-            # Value already exists, raise ValueError
             raise ValueError("Value already exists in the tree")
         return node
 
@@ -32,4 +31,3 @@ class BinaryTree:
         if value < node.value:
             return self._search(node.left, value)
         return self._search(node.right, value)
-
