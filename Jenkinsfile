@@ -72,13 +72,13 @@ pipeline {
             }
         }
 
-        stage('Scan Script') {
+        stage('Scan Script using Bandit') {
             steps {
                 sh 'bandit binarytree.py'
             }
         }
 
-        stage('Test Script') {
+        stage('Test Script with Coverage') {
             steps {
                 sh 'python3 -m coverage run binarytree.py'
                 sh 'python3 -m coverage report'
