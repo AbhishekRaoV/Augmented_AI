@@ -36,4 +36,4 @@ class BinaryTree:
         return self._search(node.right, value)
 ```
 
-Please note that without the contents of the ReviewFile.txt, I cannot provide specific changes.
+Please note that without the contents of the ReviewFile.txt, I cannot make specific changes.
