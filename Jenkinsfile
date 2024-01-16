@@ -16,7 +16,7 @@ pipeline {
 
         stage('Scan Script') {
             steps {
-                sh 'bandit -r binarytree.py'
+                sh '/var/lib/jenkins/.local/bin/bandit -r binarytree.py'
             }
         }
 
